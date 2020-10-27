@@ -7,14 +7,14 @@ public class ResourcesHandler : MonoBehaviour {
     [Header ("Common")]
     [SerializeField] public GameObject ImageLine;
     [SerializeField] public GameObject ImageLinesJoint;
-    
-    //[Header ("DailyLoveApp")]
+
+    [Header("DailyLoveApp")]
     // Level, Board
-    //[SerializeField] public GameObject Level;
+    [SerializeField] public GameObject IBEntryView;
     // Sprites
     //[SerializeField] private Sprite s_abba=null;
-    
-    
+
+
     // Getters
     //public GameObject GetTileView(Tile sourceObject) {
     //    //if (sourceObject is Abba) { return AbbaView; }// TODO: Remove these extra views, yo
@@ -29,9 +29,9 @@ public class ResourcesHandler : MonoBehaviour {
     //        case TileType.Brick: return s_brick;
     //        case TileType.Crate: return s_crate;
     //        case TileType.Star: return s_star;
-            
+
     //        case TileType.Is: return s_is;
-            
+
     //        case TileType.Destroys: return s_destroys;
     //        case TileType.OverlapGoal: return s_overlapGoal;
     //        case TileType.Push: return s_push;
@@ -41,9 +41,9 @@ public class ResourcesHandler : MonoBehaviour {
     //        default: return null;
     //    }
     //}
-    
-    
-    
+
+
+
     // Instance
     static public ResourcesHandler Instance { get; private set; }
 

@@ -9,6 +9,30 @@ public class TextUtils {
     private static string[] LINE_BREAKS_STRINGS = new string[] { System.Environment.NewLine };
     private static CultureInfo parserCulture = CultureInfo.CreateSpecificCulture ("en"); // We ONLY want to parse (number) strings with English culture!
 
+    /** Returns like "August 24, 2040" */
+    internal static string MediumDateString(DateTime date) {
+        return MonthName(date.Month) + " " + date.Day + ", " + date.Year;
+    }
+    public static string MonthName(int month)
+    {
+        switch(month)
+        {
+            case 1: return "January";
+            case 2: return "February";
+            case 3: return "March";
+            case 4: return "April";
+            case 5: return "May";
+            case 6: return "June";
+            case 7: return "July";
+            case 8: return "August";
+            case 9: return "September";
+            case 10: return "October";
+            case 11: return "November";
+            case 12: return "December";
+            default: return "UndefinedMonth";
+        }
+    }
+
     /** Use THIS function instead of float.Parse!! Because... on PlayStation 4, if the system's language is French, it treats periods as commas. We want ONLY to use English-style punctuation throughout all our backend. */
     public static float ParseFloat (string _string) { return float.Parse (_string, parserCulture); }
     public static int ParseInt (string _string) { return int.Parse (_string, parserCulture); }
