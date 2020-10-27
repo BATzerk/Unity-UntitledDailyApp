@@ -14,8 +14,8 @@ public class MenuController : MonoBehaviour
     // ================================================================
     void Start()
     {
-        ShowPanel(panel_IBs);
-        //ShowPanel(panel_today);
+        //ShowPanel(panel_IBs);
+        ShowPanel(panel_today);
     }
 
 

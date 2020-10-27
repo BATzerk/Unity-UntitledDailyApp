@@ -72,6 +72,15 @@ public class PanelIBs : BasePanel
 
 
 
+    void Update()
+    {
+        //Unity HACK. To make sure components are arranged correctly.
+        if (Time.frameCount % 10 == 0)
+        {
+            rt_entriesParent.sizeDelta = new Vector2(rt_entriesParent.sizeDelta.x + 1, rt_entriesParent.sizeDelta.y);
+            rt_entriesParent.sizeDelta = new Vector2(rt_entriesParent.sizeDelta.x - 1, rt_entriesParent.sizeDelta.y);
+        }
+    }
 
 
     // ================================================================
