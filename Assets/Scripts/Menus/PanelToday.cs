@@ -11,7 +11,7 @@ public class PanelToday : BasePanel
     [SerializeField] private TextMeshProUGUI t_prompt = null;
     private string[] availablePrompts =
     {
-        "2+ nice/motivating messages to my future self",
+        "Add 2+ nice/motivating messages to my future self in Bright Notes!",
         "3+ good things that recently happened",
         "3+ things that bring me joy",
         "2+ things I admire about other people",
@@ -24,16 +24,16 @@ public class PanelToday : BasePanel
         "1 nice thing I will do for someone else today (plus a follow-up lingering notification to confirm I’ve done it)",
         "3+ nice things I can do for others today, but don’t have to do",
         "1+ thing I want to work on on myself, I want to get better at",
-        "1+ thought or thing I want to do less of",
+        "1+ thought or thing I want to do less of today",
         "2+ things I want to attract into my life this week (plus follow-up notifications, reminding about it)",
         "1 love letter to yourself. “Dear Brett… Love, Brett.”",
-        "Come up with a random pun for the word: {RANDOM_WORD}.",
-        "Write a playful/silly/inspiring/loving poem using the prompt: {RANDOM_WORD}. Limit 500 characters.",
+        "Come up with a terrible pun for the word: {RANDOM_WORD}.",
+        "Write a playful/silly/inspiring/loving poem using the prompt: {RANDOM_WORD}.",
         "3 + reasons you’re proud of yourself.",
         "Who’s someone you love? Why?",
         "What’s on your mind today? Explain how it relates to this random word: {RANDOM_WORD}.",
-        "2 + things I’ve recently learned. “You’re getting smarter every day!” popup.",
-        "2 ways make world better place",
+        "2 + things I’ve recently learned. (You’re getting smarter every day!)",
+        "2 ways you can make the world a better place today",
         "What’s something I’ve been putting off that I will do today? (Follow-up lingering notification)",
     };
 
@@ -59,13 +59,17 @@ public class PanelToday : BasePanel
     private string GetRandomPrompt()
     {
         string prompt = availablePrompts[Mathf.FloorToInt(UnityEngine.Random.Range(0, availablePrompts.Length))];
-        prompt = prompt.Replace("{RANDOM_WORD}", GetRandomWord());
+        prompt = prompt.Replace("{RANDOM_WORD}", GetRandomWord().ToUpper());
         return prompt;
     }
 
     public void Debug_GetNewPrompt()
     {
         t_prompt.text = GetRandomPrompt();
+    }
+    public void Debug_CopyPromptToClipboard()
+    {
+        GameUtils.CopyToClipboard(t_prompt.text);
     }
 
 
@@ -112,13 +116,11 @@ public class PanelToday : BasePanel
 "along",
 "already",
 "also",
-"although",
 "always",
 "American",
 "among",
 "amount",
 "analysis",
-"and",
 "animal",
 "another",
 "answer",
@@ -136,10 +138,8 @@ public class PanelToday : BasePanel
 "art",
 "article",
 "artist",
-"as",
 "ask",
 "assume",
-"at",
 "attack",
 "attention",
 "attorney",
