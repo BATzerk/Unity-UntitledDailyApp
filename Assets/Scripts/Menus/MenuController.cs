@@ -38,4 +38,15 @@ public class MenuController : MonoBehaviour
 
 
 
+    // ================================================================
+    //  Update
+    // ================================================================
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            GameManagers.Instance.DataManager.ClearAllSaveData();
+        }
+    }
+
 }

@@ -8,8 +8,10 @@ public class PanelIBs : BasePanel
 {
     // Components
     [SerializeField] private TextMeshProUGUI t_date = null;
-    [SerializeField] private RectTransform rt_entriesParent = null;
-    private List<IBEntryView> entryViews;
+    [SerializeField] public  RectTransform rt_entriesParent = null;
+    private List<IBEntryView> entryViews = new List<IBEntryView>();
+    // Properties
+    private DateTime selectedDate;
 
 
 
@@ -17,11 +19,13 @@ public class PanelIBs : BasePanel
     //  Start
     // ================================================================
     void Start() {
-        DateTime thisDate = DateTime.Today;
+        selectedDate = DateTime.Today;
 
-
+        RefreshVisuals();
+    }
+    private void RefreshVisuals() {
         // Refresh date text
-        t_date.text = TextUtils.MediumDateString(thisDate);
+        t_date.text = TextUtils.MediumDateString(selectedDate);
 
 
         // Load datas.
@@ -29,24 +33,41 @@ public class PanelIBs : BasePanel
         int index = 0;
         while (true)
         {
-            string saveKey = SaveStorage.GetString(SaveKeys.IBEntry(thisDate, index));
-            if (!SaveStorage.HasKey(saveKey)) { break; } // No save entry? Quit the loop.
-            string saveDataString = SaveStorage.GetString(saveKey);
-            IBData data = JsonUtility.FromJson<IBData>(saveDataString);
+            IBData data = LoadIBData(selectedDate, index);
+            if (data == null || data.IsEmpty()) { break; } // No entry? Quit loop.
             loadedDatas.Add(data);
             if (index++ > 99) { break; } // Safety check.
         }
 
 
 
+        // Destroy entryViews.
+        for (int i=entryViews.Count-1; i>=0; --i) {
+            GameObject.Destroy(entryViews[i].gameObject);
+        }
         // Populate entryViews.
         entryViews = new List<IBEntryView>();
         for (int i=0; i<loadedDatas.Count; i++)
         {
             IBEntryView newView = Instantiate(ResourcesHandler.Instance.IBEntryView).GetComponent<IBEntryView>();
-            newView.Initialize(rt_entriesParent, loadedDatas[i]);
+            newView.Initialize(this, loadedDatas[i]);
             entryViews.Add(newView);
         }
+    }
+
+
+
+
+    private static IBData LoadIBData(DateTime date, int index)
+    {
+        string saveKey = SaveKeys.IBEntry(CustomDate.FromDateTime(date), index);
+        string saveDataString = SaveStorage.GetString(saveKey);
+        return JsonUtility.FromJson<IBData>(saveDataString);
+    }
+    public static void SaveIBData(IBData data)
+    {
+        string saveKey = SaveKeys.IBEntry(data.myDate, data.myIndex);
+        SaveStorage.SetString(saveKey, JsonUtility.ToJson(data));
     }
 
 
@@ -59,7 +80,7 @@ public class PanelIBs : BasePanel
     public void AddIBEntryView()
     {
         IBEntryView newView = Instantiate(ResourcesHandler.Instance.IBEntryView).GetComponent<IBEntryView>();
-        newView.Initialize(rt_entriesParent, new IBData());
+        newView.Initialize(this, new IBData(CustomDate.FromDateTime(selectedDate), entryViews.Count));
         entryViews.Add(newView);
     }
 

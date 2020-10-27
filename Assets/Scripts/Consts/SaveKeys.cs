@@ -5,9 +5,11 @@ using UnityEngine;
 
 public static class SaveKeys {
     // Entries
-    public static string IBEntry(DateTime date, int index)
+    public static string IBEntry(CustomDate date, int index)
     {
-        return "data_ib_" + date.ToShortDateString() + "_" + index;
+        return "data_ib_"
+            + date.Year + "_" + date.Month + "_" + date.Day
+            + "_" + index;
     }
     //public const string LastPlayedLevelAddress = "LastPlayedLevelAddress";
     //public static string LastPlayedLevelInPack(int packIndex) { return "LastPlayedLevelInPack_" + packIndex; }
