@@ -8,14 +8,40 @@ public class TextUtils {
     // Properties
     private static string[] LINE_BREAKS_STRINGS = new string[] { System.Environment.NewLine };
     private static CultureInfo parserCulture = CultureInfo.CreateSpecificCulture ("en"); // We ONLY want to parse (number) strings with English culture!
-
+    
+    /** Returns like "Aug 24" */
+    internal static string TinyDateString(DateTime date) {
+        return MonthName(date.Month) + " " + date.Day;
+    }
+    /** Returns like "Aug 24" */
+    internal static string ShortDateString(DateTime date) {
+        return MonthNameShort(date.Month) + " " + date.Day + ", " + date.Year;
+    }
     /** Returns like "August 24, 2040" */
     internal static string MediumDateString(DateTime date) {
         return MonthName(date.Month) + " " + date.Day + ", " + date.Year;
     }
+    public static string MonthNameShort(int month) {
+        switch(month)
+        {
+            case 1: return "Jan";
+            case 2: return "Feb";
+            case 3: return "March";
+            case 4: return "April";
+            case 5: return "May";
+            case 6: return "June";
+            case 7: return "July";
+            case 8: return "Aug";
+            case 9: return "Sept";
+            case 10: return "Oct";
+            case 11: return "Nov";
+            case 12: return "Dec";
+            default: return "UndefinedMonth";
+        }
+    }
     public static string MonthName(int month)
     {
-        switch(month)
+        switch (month)
         {
             case 1: return "January";
             case 2: return "February";
